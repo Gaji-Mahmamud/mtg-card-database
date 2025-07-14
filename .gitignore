@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.venv/
+venv/
+.env
+.env.*
+
+# UV
+.uv_cache/
+
+# Node.js (for future frontend)
+node_modules/
+.next/
+.nuxt/
+dist/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
