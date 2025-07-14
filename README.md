@@ -1,19 +1,28 @@
 # MTG Card Database
 
-A full-stack web application for searching and discovering Magic: The Gathering cards.
+A full-stack web application for searching and discovering Magic: The Gathering cards with modern glass morphism UI.
 
 ## Tech Stack
 
 **Backend:**
 - FastAPI with Python 3.12
 - UV for dependency management
-- Integration with Scryfall API
+- Scryfall API integration
+- Real-time card pricing data
 
 **Frontend:**
 - React 19 with TypeScript
-- Tailwind CSS v4
+- Tailwind CSS v4 with glass morphism design
 - TanStack Query for API state management
 - Vite for build tooling
+
+## Features
+
+- **Card Search:** Search MTG cards by name with real-time results
+- **Card Details:** Click cards to view detailed information in modal
+- **Pricing:** Live market prices (USD/EUR, normal/foil)
+- **Modern UI:** Dark glass aesthetic with smooth animations
+- **Fast:** Optimized API calls with caching
 
 ## Prerequisites
 
@@ -25,7 +34,7 @@ A full-stack web application for searching and discovering Magic: The Gathering 
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Gaji-Mahmamud/mtg-card-database.git
+git clone <your-repo-url>
 cd mtg-card-database
 ```
 
@@ -35,7 +44,7 @@ cd backend
 uv sync
 uv run python -m uvicorn app.main:app --reload
 ```
-Backend will run on `http://127.0.0.1:8000`
+Backend runs on `http://127.0.0.1:8000`
 
 ### 3. Frontend Setup
 ```bash
@@ -43,7 +52,7 @@ cd frontend
 npm install
 npm run dev
 ```
-Frontend will run on `http://localhost:5173`
+Frontend runs on `http://localhost:5173`
 
 ## Development
 
@@ -61,39 +70,18 @@ npm run dev
 
 ## API Documentation
 
-Visit `http://127.0.0.1:8000/docs` for interactive API documentation.
+Interactive API docs: `http://127.0.0.1:8000/docs`
 
-## Project Structure
+## Usage
 
-```
-mtg-card-database/
-├── backend/
-│   ├── app/
-│   │   └── main.py
-│   ├── pyproject.toml
-│   └── uv.lock
-├── frontend/
-│   ├── src/
-│   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   └── index.css
-│   ├── package.json
-│   └── vite.config.ts
-└── README.md
-```
-
-## Features (Coming Soon)
-
-- [ ] Search MTG cards by name, type, color
-- [ ] Advanced filtering options
-- [ ] Card details with images and game text
-- [ ] Search history and favorites
-- [ ] Export search results
+1. Open the application in your browser
+2. Search for any MTG card name
+3. Click cards to view detailed information and pricing
+4. View market prices for different printings
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Test both frontend and backend
-5. Submit a pull request
+3. Test both frontend and backend
+4. Submit a pull request
