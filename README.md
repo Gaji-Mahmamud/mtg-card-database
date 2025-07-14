@@ -25,7 +25,7 @@ A full-stack web application for searching and discovering Magic: The Gathering 
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Gaji-Mahmamud/mtg-card-database.git
 cd mtg-card-database
 ```
 
