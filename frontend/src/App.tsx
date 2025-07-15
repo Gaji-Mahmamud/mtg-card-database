@@ -277,18 +277,20 @@ function CardModal({
 
         <div className="flex flex-col md:flex-row gap-6">
           {currentImage && (
-            <div className="flex-shrink-0 relative">
-              <img 
-                src={currentImage}
-                alt={currentFace.name || card.name}
-                className="w-full md:w-64 rounded-lg shadow-lg"
-              />
+            <div className="flex-shrink-0 flex flex-col items-center">
+              <div className="relative mb-3">
+                <img 
+                  src={currentImage}
+                  alt={currentFace.name || card.name}
+                  className="w-full md:w-64 rounded-lg shadow-lg"
+                />
+              </div>
               {hasBackFace && (
                 <button
                   onClick={() => setShowBackFace(!showBackFace)}
-                  className="absolute bottom-2 right-2 bg-purple-600/80 hover:bg-purple-700/80 text-white px-2 py-1 rounded text-xs transition-colors"
+                  className="bg-purple-600/80 hover:bg-purple-700/80 text-white px-4 py-2 rounded-lg text-sm transition-colors font-medium shadow-lg"
                 >
-                  {showBackFace ? 'Front' : 'Back'}
+                  Flip Over
                 </button>
               )}
             </div>
@@ -715,6 +717,7 @@ function CardSearch() {
   const [submittedQuery, setSubmittedQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedCard, setSelectedCard] = useState<Card | null>(null)
+  const [originalCard, setOriginalCard] = useState<Card | null>(null) // Add this line
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [artworkCardName, setArtworkCardName] = useState<string | null>(null)
   const [isArtworkModalOpen, setIsArtworkModalOpen] = useState(false)
@@ -755,6 +758,7 @@ function CardSearch() {
 
   const openCardModal = (card: Card) => {
     setSelectedCard(card)
+    setOriginalCard(card) // Store the original card data
     setIsModalOpen(true)
   }
 
@@ -767,6 +771,7 @@ function CardSearch() {
     setArtworkCardName(cardName)
     setIsArtworkModalOpen(true)
     setIsModalOpen(false) // Close card detail modal
+    // Keep originalCard so we can restore the full data
   }
 
   const closeArtworkModal = () => {
@@ -775,20 +780,20 @@ function CardSearch() {
   }
 
   const handlePrintingSelect = (printing: CardPrinting) => {
-    // Convert printing to card format and open card modal
-    const cardFromPrinting: Card = {
+    if (!originalCard) return // Safety check
+    
+    // Merge original card data with printing-specific info
+    const cardWithNewPrinting: Card = {
+      ...originalCard, // Keep all the original card details (mana cost, oracle text, etc.)
       id: printing.id,
-      name: printing.name,
-      type_line: '', // This won't be available from printing, but that's ok
-      colors: [],
-      rarity: printing.rarity,
       set_name: printing.set_name,
       image_uris: printing.image_uris,
-      scryfall_uri: printing.scryfall_uri,
-      prices: printing.prices
+      prices: printing.prices,
+      scryfall_uri: printing.scryfall_uri
+      // Don't override rarity from printing as it could be promotional/special
     }
     
-    setSelectedCard(cardFromPrinting)
+    setSelectedCard(cardWithNewPrinting)
     setIsArtworkModalOpen(false)
     setIsModalOpen(true)
   }
