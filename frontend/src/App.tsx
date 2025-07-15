@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
+
 // Types
 interface CardFace {
   name?: string
@@ -121,7 +123,7 @@ const searchCards = async (
     params.append('rarity', filters.rarity)
   }
   
-  const response = await fetch(`http://127.0.0.1:8000/search/cards?${params}`)
+  const response = await fetch(`${API_URL}/search/cards?${params}`)
   if (!response.ok) {
     throw new Error('Failed to search cards')
   }
@@ -129,7 +131,7 @@ const searchCards = async (
 }
 
 const getCardPrintings = async (cardName: string): Promise<PrintingsResponse> => {
-  const response = await fetch(`http://127.0.0.1:8000/cards/${encodeURIComponent(cardName)}/printings`)
+  const response = await fetch(`${API_URL}/cards/${encodeURIComponent(cardName)}/printings`)
   if (!response.ok) {
     throw new Error('Failed to fetch card printings')
   }
@@ -137,7 +139,7 @@ const getCardPrintings = async (cardName: string): Promise<PrintingsResponse> =>
 }
 
 const getFilterOptions = async () => {
-  const response = await fetch('http://127.0.0.1:8000/search/filters')
+  const response = await fetch(`${API_URL}/search/filters`)
   if (!response.ok) {
     throw new Error('Failed to fetch filter options')
   }
@@ -926,7 +928,7 @@ function BackendStatusToast() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['backend-test'],
     queryFn: async () => {
-      const response = await fetch('http://127.0.0.1:8000/')
+      const response = await fetch(`${API_URL}/`)
       if (!response.ok) throw new Error('Failed to fetch backend data')
       return response.json()
     },

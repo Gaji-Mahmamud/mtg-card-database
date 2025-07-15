@@ -5,13 +5,18 @@ from typing import Optional, List
 import asyncio
 from datetime import datetime, timedelta
 import json
+import os
 
 app = FastAPI(title="MTG Card Database API", version="0.1.0")
 
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173", 
+        os.getenv("FRONTEND_URL", "https://your-app-name.vercel.app")
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
